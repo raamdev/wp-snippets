@@ -1,3 +1,3 @@
-= WP Snippets =
+# WP Snippets
 
 Snippets (shortcode includes) for WordPress®.
