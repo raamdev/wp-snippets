@@ -1,4 +1,4 @@
-=== WordPress® Snippets ===
+=== WP Snippets ===
 
 Contributors: WebSharks
 Donate link: http://www.s2member.com/donate/
@@ -41,9 +41,9 @@ Using a Snippet that you've created inside a PHP template file.
 
 	<?php echo do_shortcode('[snippet slug="my-cool-snippet" /]'); ?>
 
-#### Who can use Snippets in the Dashboard?
+#### Who can manage Snippets in the Dashboard?
 
-By default, only WordPress® Administrators can use Snippets. If you would like to give others the Capabilities required, please use a plugin like [Enhanced Capability Manager](http://wordpress.org/extend/plugins/capability-manager-enhanced/).
+By default, only WordPress® Administrators can manage (i.e. create/edit) Snippets (anyone who can edit Posts/Pages can use them though). If you would like to give others the Capabilities required, please use a plugin like [Enhanced Capability Manager](http://wordpress.org/extend/plugins/capability-manager-enhanced/).
 
 Add the following Capabilities to the additional Roles that should be allowed to manage Snippets.
 
@@ -67,7 +67,7 @@ Yes. Absolutely. You can even nest one Snippet inside another one via Shortcodes
 
 #### I also installed the [Raw HTML plugin](http://wordpress.org/extend/plugins/raw-html/). Can I use Raw HTML inside a Snippet?
 
-Yes. When creating a new Snippet, please wrap your Snippet content with `[raw][/raw]` tags; or with `<!--raw--><!--/raw-->` tags. Consult the [Raw HTML documentation](http://wordpress.org/extend/plugins/raw-html/) on this please. An important point to make is that Snippets are self-contained. Applying Raw HTML to a Post/Page that includes a Snippet via `[snippet slug="my-snippet"] /]`, will NOT apply Raw HTML to the Snippet content itself. You must wrap the Snippet content with raw tags to achieve this. This actually provides a great deal of flexibility, because it allows you to have a Raw HTML Post or Page, but have Snippets that were designed in the WP Visual Editor (or vice versa — and even mixtures, if you include multiple Snippets).
+Yes. When creating a new Snippet, please wrap your Snippet content with `[raw][/raw]` tags; or with `<!--raw--><!--/raw-->` tags. Consult the [Raw HTML documentation](http://wordpress.org/extend/plugins/raw-html/) on this please. An important point to make is that Snippets are self-contained. Applying Raw HTML to a Post/Page that includes a Snippet via `[snippet slug="my-snippet" /]`, will NOT apply Raw HTML to the Snippet content itself. You must wrap the Snippet content with raw tags to achieve this. This actually provides a great deal of flexibility, because it allows you to have a Raw HTML Post or Page, but have Snippets that were designed in the WP Visual Editor (or vice versa — and even mixtures, if you include multiple Snippets).
 
 #### I also installed the [ezPHP plugin](http://wordpress.org/extend/plugins/ezphp/). Can I use PHP tags inside a Snippet?
 
