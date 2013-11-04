@@ -1,15 +1,16 @@
 === WP Snippets ===
 
-Contributors: WebSharks
-Donate link: http://www.s2member.com/donate/
-Tags: snippet, snippets, include, includes, shortcode, shortcodes, php, post type, post types, utilities, posts, pages
+Stable tag: 130206
+Requires at least: 3.2
+Tested up to: 3.6-alpha
+Text Domain: wp-snippets
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Stable tag: 130206
-Requires at least: 3.2
-Tested up to: 3.6-alpha
+Contributors: WebSharks
+Donate link: http://www.s2member.com/donate/
+Tags: snippet, snippets, include, includes, shortcode, shortcodes, php, post type, post types, utilities, posts, pages
 
 Create Snippets! This plugin adds a new Post Type. Snippets can be included in other Posts/Pages/Widgets via Shortcodes. A very lightweight plugin!
 
