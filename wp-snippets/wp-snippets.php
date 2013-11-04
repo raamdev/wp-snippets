@@ -60,7 +60,6 @@ class wp_snippets
 				'not_found_in_trash' => __('No Snippets found in Trash', 'wp-snippets')
 			);
 			register_post_type('snippet', $args);
-			#print_r($GLOBALS['wp_post_types']['snippet']);
 		}
 
 	public static function caps($action)
