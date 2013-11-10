@@ -39,6 +39,7 @@ class wp_snippets
 				'show_ui'             => TRUE,
 				'map_meta_cap'        => TRUE,
 				'exclude_from_search' => TRUE,
+				'show_in_nav_menus'   => FALSE,
 				'capability_type'     => array('snippet', 'snippets'),
 				'public'              => current_user_can('edit_snippets'),
 				'rewrite'             => array('slug' => 'snippet', 'with_front' => FALSE),
