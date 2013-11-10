@@ -28,8 +28,6 @@ class wp_snippets
 			add_filter('widget_text', 'do_shortcode');
 			add_shortcode('snippet', 'wp_snippets::shortcode');
 
-			add_filter('ws_plugin__s2member_add_meta_boxes_excluded_types', 'wp_snippets::s2');
-
 			if(defined('RAWHTML_PLUGIN_FILE') && function_exists('rawhtml_get_settings_fields'))
 				add_filter('get_post_metadata', 'wp_snippets::raw_html_settings', 10, 4);
 		}
@@ -92,17 +90,13 @@ class wp_snippets
 			unset($_role, $_cap); // Housekeeping.
 		}
 
-	public static function s2($exclued_post_types)
-		{
-			return array_merge($exclued_post_types, array('snippet'));
-		}
-
 	public static function raw_html_settings($what_wp_says, $post_id, $meta_key, $single)
 		{
 			if(function_exists('rawhtml_get_settings_fields'))
 				if($meta_key === '_rawhtml_settings' && get_post_type($post_id) === 'snippet')
 					{
 						$settings = implode(',', array_fill(0, count(rawhtml_get_settings_fields()), '0'));
+
 						return ($single) ? $settings : array($settings);
 					}
 			return $what_wp_says; // Default return value.
