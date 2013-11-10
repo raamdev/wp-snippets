@@ -36,12 +36,13 @@ class wp_snippets
 		{
 			$args           = array
 			(
-				'show_ui'         => TRUE,
-				'map_meta_cap'    => TRUE,
-				'public'          => current_user_can('edit_snippets'),
-				'capability_type' => array('snippet', 'snippets'),
-				'rewrite'         => array('slug' => 'snippet', 'with_front' => FALSE),
-				'supports'        => array('title', 'editor', 'author', 'revisions')
+				'show_ui'             => TRUE,
+				'map_meta_cap'        => TRUE,
+				'exclude_from_search' => TRUE,
+				'capability_type'     => array('snippet', 'snippets'),
+				'public'              => current_user_can('edit_snippets'),
+				'rewrite'             => array('slug' => 'snippet', 'with_front' => FALSE),
+				'supports'            => array('title', 'editor', 'author', 'revisions')
 			);
 			$args['labels'] = array
 			(
