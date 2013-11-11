@@ -120,9 +120,9 @@ class wp_snippets
 
 			$snippet = $posts[0]->post_content;
 
-			foreach($attr as $_key => $_value) // Replacement codes.
-				if($_key !== 'slug' && is_string($_key) && is_string($_value))
-					$snippet = str_ireplace('%%'.$_key.'%%', $_value, $snippet);
+			foreach($attr as $_key => $_value) if($_key !== 'slug' && is_string($_key) && is_string($_value))
+				$snippet = str_ireplace('%%'.$_key.'%%', $_value, $snippet); // Process replacement codes.
+			$snippet = preg_replace('/%%.+?%%/', '', $snippet); // Ditch any remaining codes.
 			unset($_key, $_value); // Housekeeping.
 
 			if(!($snippet = apply_filters('the_content', $snippet)))
