@@ -106,15 +106,29 @@ class wp_snippets
 
 	public static function shortcode($attr = NULL, $content = NULL, $shortcode = NULL)
 		{
-			$allow = array('slug' => NULL);
-			$a     = shortcode_atts($allow, ($attr = (array)$attr));
+			if(!$attr['slug']) // We do have a slug right?
+				return ''; // Nothing to do in this case.
 
-			if($a['slug'] && is_array($posts = get_posts(array('name' => (string)$a['slug'], 'post_type' => 'snippet', 'numberposts' => 1))))
-				if(!empty($posts[0]) && !empty($posts[0]->post_content) && !apply_filters('wp_snippet_exclude', FALSE, $posts[0]))
-					if(($snippet = apply_filters('the_content', $posts[0]->post_content)))
-						return apply_filters('wp_snippet', $snippet, $posts[0]);
+			if(!is_array($posts = get_posts(array('name' => (string)$attr['slug'], 'post_type' => 'snippet', 'numberposts' => 1))))
+				return ''; // This slug was not found; possibly a typo in this case.
 
-			return ''; // Default return value.
+			if(empty($posts[0]) || empty($posts[0]->post_content))
+				return ''; // No content; nothing to do.
+
+			if(apply_filters('wp_snippet_exclude', FALSE, $posts[0]))
+				return ''; // Excluding this one.
+
+			$snippet = $posts[0]->post_content;
+
+			foreach($attr as $_key => $_value) // Replacement codes.
+				if($_key !== 'slug' && is_string($_key) && is_string($_value))
+					$snippet = str_ireplace('%%'.$_key.'%%', $_value, $snippet);
+			unset($_key, $_value); // Housekeeping.
+
+			if(!($snippet = apply_filters('the_content', $snippet)))
+				return ''; // Nothing to display.
+
+			return apply_filters('wp_snippet', $snippet, $posts[0]);
 		}
 
 	public static function activate()
