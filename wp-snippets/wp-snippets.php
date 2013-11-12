@@ -34,18 +34,15 @@ class wp_snippets
 
 	public static function register()
 		{
-			$args           = array
+			$post_type_args           = array
 			(
-				'show_ui'             => TRUE,
-				'map_meta_cap'        => TRUE,
-				'exclude_from_search' => TRUE,
-				'show_in_nav_menus'   => FALSE,
-				'capability_type'     => array('snippet', 'snippets'),
-				'public'              => current_user_can('edit_snippets'),
-				'rewrite'             => array('slug' => 'snippet', 'with_front' => FALSE),
-				'supports'            => array('title', 'editor', 'author', 'revisions')
+				'public'       => current_user_can('edit_snippets'), // For previews.
+				'show_ui'      => TRUE, 'exclude_from_search' => TRUE, 'show_in_nav_menus' => FALSE,
+				'map_meta_cap' => TRUE, 'capability_type' => array('snippet', 'snippets'),
+				'rewrite'      => array('slug' => 'snippet', 'with_front' => FALSE),
+				'supports'     => array('title', 'editor', 'author', 'revisions')
 			);
-			$args['labels'] = array
+			$post_type_args['labels'] = array
 			(
 				'name'               => __('Snippets', 'wp-snippets'),
 				'singular_name'      => __('Snippet', 'wp-snippets'),
@@ -59,27 +56,66 @@ class wp_snippets
 				'not_found'          => __('No Snippet found', 'wp-snippets'),
 				'not_found_in_trash' => __('No Snippets found in Trash', 'wp-snippets')
 			);
-			register_post_type('snippet', $args);
+			register_post_type('snippet', $post_type_args);
+
+			$taxonomy_args = array // Categories.
+			(
+				'public'       => TRUE, 'show_admin_column' => TRUE,
+				'hierarchical' => TRUE, // This will use category labels.
+				'rewrite'      => array('slug' => 'scat', 'with_front' => FALSE),
+				'capabilities' => array('assign_terms' => 'edit_snippets',
+				                        'edit_terms'   => 'edit_snippets',
+				                        'manage_terms' => 'edit_others_snippets',
+				                        'delete_terms' => 'delete_others_snippets')
+			);
+			register_taxonomy('snippet_category', array('snippet'), $taxonomy_args);
 		}
 
 	public static function caps($action)
 		{
-			$caps = array
+			$all_caps = array // The ability to manage (all caps).
 			(
 				'edit_snippets',
 				'edit_others_snippets',
 				'edit_published_snippets',
 				'edit_private_snippets',
+
 				'publish_snippets',
+
 				'delete_snippets',
 				'delete_private_snippets',
 				'delete_published_snippets',
 				'delete_others_snippets',
+
 				'read_private_snippets'
 			);
-			foreach(array('administrator') as $_role)
+			foreach(apply_filters('wp_snippet_roles_all_caps', array('administrator')) as $_role)
 				if(is_object($_role = & get_role($_role)))
-					foreach($caps as $_cap) switch($action)
+					foreach($all_caps as $_cap) switch($action)
+					{
+						case 'activate':
+								$_role->add_cap($_cap);
+								break;
+
+						case 'deactivate':
+								$_role->remove_cap($_cap);
+								break;
+					}
+			unset($_role, $_cap); // Housekeeping.
+
+			$edit_caps = array // The ability to edit/publish/delete.
+			(
+				'edit_snippets',
+				'edit_published_snippets',
+
+				'publish_snippets',
+
+				'delete_snippets',
+				'delete_published_snippets'
+			);
+			foreach(apply_filters('wp_snippet_roles_edit_caps', array('administrator', 'editor', 'author')) as $_role)
+				if(is_object($_role = & get_role($_role)))
+					foreach($edit_caps as $_cap) switch($action)
 					{
 						case 'activate':
 								$_role->add_cap($_cap);
