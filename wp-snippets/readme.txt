@@ -2,7 +2,7 @@
 
 Stable tag: 130206
 Requires at least: 3.2
-Tested up to: 3.6-alpha
+Tested up to: 3.7,1
 Text Domain: wp-snippets
 
 License: GPLv2 or later
@@ -44,7 +44,7 @@ Using a Snippet that you've created inside a PHP template file.
 
 #### Who can manage Snippets in the Dashboard?
 
-By default, only WordPress® Administrators can manage (i.e. create/edit) Snippets (anyone who can edit Posts/Pages can use them though). If you would like to give others the Capabilities required, please use a plugin like [Enhanced Capability Manager](http://wordpress.org/extend/plugins/capability-manager-enhanced/).
+By default, only WordPress® Administrators can manage (i.e. create/edit/delete/manage) Snippets. Editors and Authors can create/edit/delete their own Snippets, but permissions are limited for Editors/Authors. If you would like to give other WordPress Roles the Capabilities required, please use a plugin like [Enhanced Capability Manager](http://wordpress.org/extend/plugins/capability-manager-enhanced/).
 
 Add the following Capabilities to the additional Roles that should be allowed to manage Snippets.
 
@@ -61,6 +61,8 @@ Add the following Capabilities to the additional Roles that should be allowed to
 				'delete_others_snippets',
 				'read_private_snippets'
 			);
+
+NOTE: There are also some WordPress filters integrated into the code for this plugin, which can make permissions easier to deal with in many cases. You can have a look at the source code and determine how to proceed on your own; if you choose this route.
 
 #### Is it possible to use other Shortcodes inside a Snippet?
 
