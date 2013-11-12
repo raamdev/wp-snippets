@@ -4,8 +4,8 @@ Version: 130206
 Text Domain: wp-snippets
 Plugin Name: WP Snippets
 
-Author URI: http://www.s2member.com
-Author: s2Member® / WebSharks, Inc.
+Author URI: http://www.websharks-inc.com/
+Author: WebSharks, Inc. (Jason Caldwell)
 
 Plugin URI: http://www.s2member.com/kb/wp-snippets-plugin
 Description: Create Snippets! This plugin adds a new Post Type. Snippets can be included in other Posts/Pages/Widgets via Shortcodes. A very lightweight plugin!
