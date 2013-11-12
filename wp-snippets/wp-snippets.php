@@ -62,7 +62,7 @@ class wp_snippets
 			(
 				'public'       => TRUE, 'show_admin_column' => TRUE,
 				'hierarchical' => TRUE, // This will use category labels.
-				'rewrite'      => array('slug' => 'scat', 'with_front' => FALSE),
+				'rewrite'      => array('slug' => 'snippet-category', 'with_front' => FALSE),
 				'capabilities' => array('assign_terms' => 'edit_snippets',
 				                        'edit_terms'   => 'edit_snippets',
 				                        'manage_terms' => 'edit_others_snippets',
