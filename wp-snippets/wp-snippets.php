@@ -28,6 +28,8 @@ class wp_snippets
 			add_filter('widget_text', 'do_shortcode');
 			add_shortcode('snippet', 'wp_snippets::shortcode');
 
+			$GLOBALS['is_snippet'] = FALSE; // Initialize this flag.
+
 			if(defined('RAWHTML_PLUGIN_FILE') && function_exists('rawhtml_get_settings_fields'))
 				add_filter('get_post_metadata', 'wp_snippets::raw_html_settings', 10, 4);
 		}
@@ -133,7 +135,8 @@ class wp_snippets
 			if(function_exists('rawhtml_get_settings_fields'))
 				if($meta_key === '_rawhtml_settings' && get_post_type($post_id) === 'snippet')
 					{
-						$settings = implode(',', array_fill(0, count(rawhtml_get_settings_fields()), '0'));
+						$settings = // Force all `disable_` flags off; Snippets must use `[raw][/raw]` tags.
+							implode(',', array_fill(0, count(rawhtml_get_settings_fields()), '0'));
 
 						return ($single) ? $settings : array($settings);
 					}
@@ -142,8 +145,7 @@ class wp_snippets
 
 	public static function shortcode($attr = NULL, $content = NULL, $shortcode = NULL)
 		{
-			if(!$attr['slug']) // We do have a slug right?
-				return ''; // Nothing to do in this case.
+			if(empty($attr['slug'])) return ''; // Nothing to do in this case.
 
 			if(!is_array($posts = get_posts(array('name' => (string)$attr['slug'], 'post_type' => 'snippet', 'numberposts' => 1))))
 				return ''; // This slug was not found; possibly a typo in this case.
@@ -151,20 +153,20 @@ class wp_snippets
 			if(empty($posts[0]) || empty($posts[0]->post_content))
 				return ''; // No content; nothing to do.
 
-			if(apply_filters('wp_snippet_exclude', FALSE, $posts[0]))
-				return ''; // Excluding this one.
+			$snippet         = $posts[0];
+			$snippet_content = $snippet->post_content;
 
-			$snippet = $posts[0]->post_content;
-
-			foreach($attr as $_key => $_value) if($_key !== 'slug' && is_string($_key) && is_string($_value))
-				$snippet = str_ireplace('%%'.$_key.'%%', $_value, $snippet); // Process replacement codes.
-			$snippet = preg_replace('/%%.+?%%/', '', $snippet); // Ditch any remaining codes.
+			foreach($attr as $_key => $_value) if($_key !== 'slug' && is_string($_value))
+				$snippet_content = str_ireplace('%%'.$_key.'%%', $_value, $snippet_content);
+			$snippet_content = preg_replace('/%%.+?%%/', '', $snippet_content);
 			unset($_key, $_value); // Housekeeping.
 
-			if(!($snippet = apply_filters('the_content', $snippet)))
-				return ''; // Nothing to display.
+			$GLOBALS['is_snippet'] = TRUE; // A flag for content filters.
+			$snippet_content       = apply_filters('the_content', $snippet_content);
+			$snippet_content       = apply_filters('the_snippet_content', $snippet_content, $snippet);
+			$GLOBALS['is_snippet'] = FALSE; // Falsify this flag now.
 
-			return apply_filters('wp_snippet', $snippet, $posts[0]);
+			return $snippet_content;
 		}
 
 	public static function activate()
