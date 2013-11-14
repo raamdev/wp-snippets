@@ -25,8 +25,6 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 		{
 			load_plugin_textdomain('wp-snippets');
 
-			$GLOBALS['is_snippet'] = FALSE; // Initialize this flag.
-
 			if(WP_SNIPPET_ROLES_ALL_CAPS) // Specific Roles?
 				wp_snippets::$roles_all_caps = // Convert these to an array.
 					preg_split('/[\s;,]+/', WP_SNIPPET_ROLES_ALL_CAPS, NULL, PREG_SPLIT_NO_EMPTY);
@@ -44,6 +42,8 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 
 			if(defined('RAWHTML_PLUGIN_FILE') && function_exists('rawhtml_get_settings_fields'))
 				add_filter('get_post_metadata', 'wp_snippets::raw_html_settings', 10, 4);
+
+			$GLOBALS['snippet_post'] = NULL; // Initialize this reference.
 		}
 
 	public static function register()
@@ -179,10 +179,11 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 			$snippet_content = preg_replace('/%%.+?%%/', '', $snippet_content);
 			unset($_key, $_value); // Housekeeping.
 
-			$GLOBALS['is_snippet'] = TRUE; // A flag for content filters.
-			$snippet_content       = apply_filters('the_content', $snippet_content);
-			$snippet_content       = apply_filters('the_snippet_content', $snippet_content, $snippet);
-			$GLOBALS['is_snippet'] = FALSE; // Falsify this flag now.
+			$GLOBALS['snippet_post'] = $GLOBALS['post'];
+			$GLOBALS['post']         = $snippet; // For content filters.
+			$snippet_content         = apply_filters('the_content', $snippet_content);
+			$snippet_content         = apply_filters('the_snippet_content', $snippet_content);
+			$GLOBALS['post']         = $GLOBALS['snippet_post'];
 
 			return $snippet_content;
 		}
