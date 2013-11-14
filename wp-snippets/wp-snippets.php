@@ -39,6 +39,7 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 
 			add_filter('widget_text', 'do_shortcode');
 			add_shortcode('snippet', 'wp_snippets::shortcode');
+			add_shortcode('snippet_template', 'wp_snippets::shortcode');
 
 			if(defined('RAWHTML_PLUGIN_FILE') && function_exists('rawhtml_get_settings_fields'))
 				add_filter('get_post_metadata', 'wp_snippets::raw_html_settings', 10, 4);
@@ -163,9 +164,6 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 
 	public static function shortcode($attr = NULL, $content = NULL, $shortcode = NULL)
 		{
-			if(empty($attr['slug']) && !empty($attr['template_slug']))
-				$attr['slug'] = $attr['template_slug'];
-
 			if(empty($attr['slug'])) return ''; // Nothing to do in this case.
 
 			if(!is_array($posts = get_posts(array('name' => (string)$attr['slug'], 'post_type' => 'snippet', 'numberposts' => 1))))
@@ -174,16 +172,14 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 			if(empty($posts[0]) || empty($posts[0]->post_content))
 				return ''; // No content; nothing to do.
 
-			$snippet         = $posts[0];
+			$snippet         = $posts[0]; // Object reference.
 			$snippet_content = $snippet->post_content;
 
-			if(!empty($attr['template_slug'])) // This serves as a template?
+			if($shortcode === 'snippet_template') // Template?
 				{
-					$template_attr = $attr; // A copy of all attributes.
-					unset($template_attr['slug'], $template_attr['template_slug']);
-
-					foreach($template_attr as $_key => $_value)
-						$snippet_content = str_ireplace('%%'.$_key.'%%', $_value, $snippet_content);
+					foreach($attr as $_key => $_value)
+						$snippet_content = str_ireplace('%%'.$_key.'%%', (string)$_value, $snippet_content);
+					$snippet_content = preg_replace('/%%content%%/', (string)$content, $snippet_content);
 					$snippet_content = preg_replace('/%%.+?%%/', '', $snippet_content);
 					unset($_key, $_value); // Housekeeping.
 				}
