@@ -190,7 +190,7 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 
 	public static function activate()
 		{
-			wp_snippets::register();
+			wp_snippets::init();
 			wp_snippets::caps('activate');
 			flush_rewrite_rules();
 		}
