@@ -7,7 +7,7 @@ Plugin Name: WP Snippets
 Author URI: http://www.websharks-inc.com/
 Author: WebSharks, Inc. (Jason Caldwell)
 
-Plugin URI: http://www.s2member.com/kb/wp-snippets-plugin
+Plugin URI: http://www.websharks-inc.com/product/wp-snippets/
 Description: Create Snippets! This plugin adds a new Post Type. Snippets can be included in other Posts/Pages/Widgets via Shortcodes. A very lightweight plugin!
 */
 if(!defined('WPINC')) // MUST have WordPress.
