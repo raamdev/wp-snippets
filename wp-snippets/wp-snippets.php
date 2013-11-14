@@ -163,6 +163,9 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 
 	public static function shortcode($attr = NULL, $content = NULL, $shortcode = NULL)
 		{
+			if(empty($attr['slug']) && !empty($attr['template_slug']))
+				$attr['slug'] = $attr['template_slug'];
+
 			if(empty($attr['slug'])) return ''; // Nothing to do in this case.
 
 			if(!is_array($posts = get_posts(array('name' => (string)$attr['slug'], 'post_type' => 'snippet', 'numberposts' => 1))))
@@ -174,11 +177,16 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 			$snippet         = $posts[0];
 			$snippet_content = $snippet->post_content;
 
-			foreach($attr as $_key => $_value) if($_key !== 'slug' && is_string($_value))
-				$snippet_content = str_ireplace('%%'.$_key.'%%', $_value, $snippet_content);
-			$snippet_content = preg_replace('/%%.+?%%/', '', $snippet_content);
-			unset($_key, $_value); // Housekeeping.
+			if(!empty($attr['template_slug'])) // This serves as a template?
+				{
+					$template_attr = $attr; // A copy of all attributes.
+					unset($template_attr['slug'], $template_attr['template_slug']);
 
+					foreach($template_attr as $_key => $_value)
+						$snippet_content = str_ireplace('%%'.$_key.'%%', $_value, $snippet_content);
+					$snippet_content = preg_replace('/%%.+?%%/', '', $snippet_content);
+					unset($_key, $_value); // Housekeeping.
+				}
 			$GLOBALS['snippet_post'] = $GLOBALS['post'];
 			$GLOBALS['post']         = $snippet; // For content filters.
 			$snippet_content         = apply_filters('the_content', $snippet_content);
