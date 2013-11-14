@@ -13,22 +13,34 @@ Description: Create Snippets! This plugin adds a new Post Type. Snippets can be 
 if(!defined('WPINC')) // MUST have WordPress.
 	exit('Do NOT access this file directly: '.basename(__FILE__));
 
-add_action('init', 'wp_snippets::init');
-register_activation_hook(__FILE__, 'wp_snippets::activate');
-register_deactivation_hook(__FILE__, 'wp_snippets::deactivate');
+if(!defined('WP_SNIPPET_ROLES_ALL_CAPS')) define('WP_SNIPPET_ROLES_ALL_CAPS', 'administrator');
+if(!defined('WP_SNIPPET_ROLES_EDIT_CAPS')) define('WP_SNIPPET_ROLES_EDIT_CAPS', 'administrator,editor,author');
 
-class wp_snippets
+class wp_snippets // WP Snippets; like PHP includes for WordPress.
 {
-	public static function init()
+	public static $roles_all_caps = array(); // WP Roles (comma-delimited).
+	public static $roles_edit_caps = array(); // WP Roles (comma-delimited).
+
+	public static function init() // Initialize WP Snippets.
 		{
 			load_plugin_textdomain('wp-snippets');
+
+			$GLOBALS['is_snippet'] = FALSE; // Initialize this flag.
+
+			if(WP_SNIPPET_ROLES_ALL_CAPS) // Specific Roles?
+				wp_snippets::$roles_all_caps = // Convert these to an array.
+					preg_split('/[\s;,]+/', WP_SNIPPET_ROLES_ALL_CAPS, NULL, PREG_SPLIT_NO_EMPTY);
+			wp_snippets::$roles_all_caps = apply_filters('wp_snippet_roles_all_caps', wp_snippets::$roles_all_caps);
+
+			if(WP_SNIPPET_ROLES_EDIT_CAPS) // Specific Roles?
+				wp_snippets::$roles_edit_caps = // Convert these to an array.
+					preg_split('/[\s;,]+/', WP_SNIPPET_ROLES_EDIT_CAPS, NULL, PREG_SPLIT_NO_EMPTY);
+			wp_snippets::$roles_edit_caps = apply_filters('wp_snippet_roles_edit_caps', wp_snippets::$roles_edit_caps);
 
 			wp_snippets::register();
 
 			add_filter('widget_text', 'do_shortcode');
 			add_shortcode('snippet', 'wp_snippets::shortcode');
-
-			$GLOBALS['is_snippet'] = FALSE; // Initialize this flag.
 
 			if(defined('RAWHTML_PLUGIN_FILE') && function_exists('rawhtml_get_settings_fields'))
 				add_filter('get_post_metadata', 'wp_snippets::raw_html_settings', 10, 4);
@@ -91,7 +103,7 @@ class wp_snippets
 
 				'read_private_snippets'
 			);
-			foreach(apply_filters('wp_snippet_roles_all_caps', array('administrator')) as $_role)
+			foreach(wp_snippets::$roles_all_caps as $_role)
 				if(is_object($_role = & get_role($_role)))
 					foreach($all_caps as $_cap) switch($action)
 					{
@@ -115,7 +127,7 @@ class wp_snippets
 				'delete_snippets',
 				'delete_published_snippets'
 			);
-			foreach(apply_filters('wp_snippet_roles_edit_caps', array('administrator', 'editor', 'author')) as $_role)
+			foreach(wp_snippets::$roles_edit_caps as $_role)
 				if(is_object($_role = & get_role($_role)))
 					foreach($edit_caps as $_cap) switch($action)
 					{
@@ -148,7 +160,7 @@ class wp_snippets
 			if(empty($attr['slug'])) return ''; // Nothing to do in this case.
 
 			if(!is_array($posts = get_posts(array('name' => (string)$attr['slug'], 'post_type' => 'snippet', 'numberposts' => 1))))
-				return ''; // This slug was not found; possibly a typo in this case.
+				return ''; // The slug was not found; possibly a typo in this case.
 
 			if(empty($posts[0]) || empty($posts[0]->post_content))
 				return ''; // No content; nothing to do.
@@ -182,3 +194,7 @@ class wp_snippets
 			flush_rewrite_rules();
 		}
 }
+
+add_action('init', 'wp_snippets::init');
+register_activation_hook(__FILE__, 'wp_snippets::activate');
+register_deactivation_hook(__FILE__, 'wp_snippets::deactivate');
