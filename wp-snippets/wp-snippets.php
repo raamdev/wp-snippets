@@ -103,19 +103,22 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 
 				'read_private_snippets'
 			);
-			foreach(wp_snippets::$roles_all_caps as $_role)
-				if(is_object($_role = & get_role($_role)))
-					foreach($all_caps as $_cap) switch($action)
-					{
-						case 'activate':
-								$_role->add_cap($_cap);
-								break;
+			if($action === 'deactivate') // All on deactivate.
+				$_roles = array_keys($GLOBALS['wp_roles']->roles);
+			else $_roles = wp_snippets::$roles_all_caps;
 
-						case 'deactivate':
-								$_role->remove_cap($_cap);
-								break;
-					}
-			unset($_role, $_cap); // Housekeeping.
+			foreach($_roles as $_role) if(is_object($_role = get_role($_role)))
+				foreach($all_caps as $_cap) switch($action)
+				{
+					case 'activate':
+							$_role->add_cap($_cap);
+							break;
+
+					case 'deactivate':
+							$_role->remove_cap($_cap);
+							break;
+				}
+			unset($_roles, $_role, $_cap); // Housekeeping.
 
 			$edit_caps = array // The ability to edit/publish/delete.
 			(
@@ -127,19 +130,22 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 				'delete_snippets',
 				'delete_published_snippets'
 			);
-			foreach(wp_snippets::$roles_edit_caps as $_role)
-				if(is_object($_role = & get_role($_role)))
-					foreach($edit_caps as $_cap) switch($action)
-					{
-						case 'activate':
-								$_role->add_cap($_cap);
-								break;
+			if($action === 'deactivate') // All on deactivate.
+				$_roles = array_keys($GLOBALS['wp_roles']->roles);
+			else $_roles = wp_snippets::$roles_edit_caps;
 
-						case 'deactivate':
-								$_role->remove_cap($_cap);
-								break;
-					}
-			unset($_role, $_cap); // Housekeeping.
+			foreach($_roles as $_role) if(is_object($_role = get_role($_role)))
+				foreach((($action === 'deactivate') ? $all_caps : $edit_caps) as $_cap) switch($action)
+				{
+					case 'activate':
+							$_role->add_cap($_cap);
+							break;
+
+					case 'deactivate':
+							$_role->remove_cap($_cap);
+							break;
+				}
+			unset($_roles, $_role, $_cap); // Housekeeping.
 		}
 
 	public static function raw_html_settings($what_wp_says, $post_id, $meta_key, $single)
