@@ -18,8 +18,8 @@ if(!defined('WP_SNIPPET_ROLES_EDIT_CAPS')) define('WP_SNIPPET_ROLES_EDIT_CAPS', 
 
 class wp_snippets // WP Snippets; like PHP includes for WordPress.
 {
-	public static $roles_all_caps = array(); // WP Roles (comma-delimited).
-	public static $roles_edit_caps = array(); // WP Roles (comma-delimited).
+	public static $roles_all_caps = array(); // WP Roles; as array.
+	public static $roles_edit_caps = array(); // WP Roles; as array.
 
 	public static function init() // Initialize WP Snippets.
 		{
