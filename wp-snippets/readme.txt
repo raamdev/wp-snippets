@@ -2,7 +2,7 @@
 
 Stable tag: 130206
 Requires at least: 3.2
-Tested up to: 3.7,1
+Tested up to: 3.7.1
 Text Domain: wp-snippets
 
 License: GPLv2 or later
@@ -84,7 +84,7 @@ Yes. Absolutely. I recommend this KB article: [s2Member® Simple Conditionals](h
 
 = WP Snippets is very easy to install (instructions) =
 1. Upload the `/wp-snippets` folder to your `/wp-content/plugins/` directory.
-2. Activate the plugin through the `Plugins` menu in WordPress®.
+2. Activate the plugin through the **Plugins** menu in WordPress®.
 3. Use Snippets in your Posts/Pages/Widgets via Shortcodes.
 
 	[snippet slug="my-cool-snippet" /]
