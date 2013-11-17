@@ -82,7 +82,8 @@ Yes. Absolutely. I recommend this KB article: [s2Member® Simple Conditionals](h
 
 == Installation ==
 
-= WP Snippets is very easy to install (instructions) =
+= WP Snippets is Very Easy to Install =
+
 1. Upload the `/wp-snippets` folder to your `/wp-content/plugins/` directory.
 2. Activate the plugin through the **Plugins** menu in WordPress®.
 3. Use Snippets in your Posts/Pages/Widgets via Shortcodes.
@@ -92,4 +93,5 @@ Yes. Absolutely. I recommend this KB article: [s2Member® Simple Conditionals](h
 == Changelog ==
 
 = v130206 =
+
  * Initial release.
