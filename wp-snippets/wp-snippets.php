@@ -68,7 +68,7 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 				'all_items'          => __('All Snippets', 'wp-snippets'),
 				'view_item'          => __('View Snippet', 'wp-snippets'),
 				'search_items'       => __('Search Snippets', 'wp-snippets'),
-				'not_found'          => __('No Snippet found', 'wp-snippets'),
+				'not_found'          => __('No Snippets found', 'wp-snippets'),
 				'not_found_in_trash' => __('No Snippets found in Trash', 'wp-snippets')
 			);
 			register_post_type('snippet', $post_type_args);
