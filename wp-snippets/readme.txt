@@ -94,4 +94,4 @@ Yes. Absolutely. I recommend this KB article: [s2Member® Simple Conditionals](h
 
 = v130206 =
 
- * Initial release.
+* Initial release.
