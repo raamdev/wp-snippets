@@ -87,7 +87,7 @@ Yes. Absolutely. I recommend this KB article: [s2Member® Simple Conditionals](h
 2. Activate the plugin through the **Plugins** menu in WordPress®.
 3. Use Snippets in your Posts/Pages/Widgets via Shortcodes.
 
-	[snippet slug="my-cool-snippet" /]
+		[snippet slug="my-cool-snippet" /]
 
 == Changelog ==
 
