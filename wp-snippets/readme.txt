@@ -1,6 +1,6 @@
 === WP Snippets ===
 
-Stable tag: 130206
+Stable tag: 131121
 Requires at least: 3.2
 Tested up to: 3.7.1
 Text Domain: wp-snippets
@@ -112,6 +112,10 @@ Released under the terms of the [GNU General Public License](http://www.gnu.org/
 	- Font Awesome <http://fortawesome.github.io/Font-Awesome/>
 
 == Changelog ==
+
+= v131121 =
+
+* Adding support for `[snippet_template slug="" /]`. This works the same as a normal `[snippet slug="" /]` shortcode; except with a Snippet Template shortcode, any additional attributes that you specify are used as replacement code values in the Snippet content. For instance, you might have a Snippet with content that includes this replacement code: `%%type%%`. Now create your Snippet shortcode like this to fill that value dynamically: `[snippet_template slug="my-slug" type="product" /]`; where `%%type%%` is now replaced by `product` dynamically.
 
 = v130206 =
 

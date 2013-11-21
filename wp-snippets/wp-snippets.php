@@ -1,6 +1,6 @@
 <?php
 /*
-Version: 130206
+Version: 131121
 Text Domain: wp-snippets
 Plugin Name: WP Snippets
 
