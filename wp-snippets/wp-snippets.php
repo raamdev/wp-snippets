@@ -8,7 +8,7 @@ Author URI: http://www.websharks-inc.com/
 Author: WebSharks, Inc. (Jason Caldwell)
 
 Plugin URI: http://www.websharks-inc.com/product/wp-snippets/
-Description: Create Snippets! This plugin adds a new Post Type. Snippets can be included in other Posts/Pages/Widgets via Shortcodes. A very lightweight plugin!
+Description: Create Snippets! This plugin adds a new Post Type. Snippets can be included in Posts/Pages/Widgets via shortcodes.
 */
 if(!defined('WPINC')) // MUST have WordPress.
 	exit('Do NOT access this file directly: '.basename(__FILE__));

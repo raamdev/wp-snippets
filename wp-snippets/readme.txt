@@ -12,7 +12,7 @@ Contributors: WebSharks
 Donate link: http://www.websharks-inc.com/r/wp-theme-plugin-donation/
 Tags: snippet, snippets, include, includes, shortcode, shortcodes, php, post type, post types, utilities, posts, pages
 
-Create Snippets! This plugin adds a new Post Type. Snippets can be included in Posts/Pages/Widgets via Shortcodes. A very lightweight plugin!
+Create Snippets! This plugin adds a new Post Type. Snippets can be included in Posts/Pages/Widgets via shortcodes.
 
 == Description ==
 
