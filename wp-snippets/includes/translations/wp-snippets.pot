@@ -1,0 +1,79 @@
+# Copyright (C) 2014 WP Snippets
+# This file is distributed under the same license as the WP Snippets package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Snippets 131121\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-snippets\n"
+"POT-Creation-Date: 2014-01-08 05:59:33+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: wp-snippets.php:62
+msgid "Snippets"
+msgstr ""
+
+#: wp-snippets.php:63
+msgid "Snippet"
+msgstr ""
+
+#: wp-snippets.php:64
+msgid "Add Snippet"
+msgstr ""
+
+#: wp-snippets.php:65
+msgid "Add New Snippet"
+msgstr ""
+
+#: wp-snippets.php:66
+msgid "Edit Snippet"
+msgstr ""
+
+#: wp-snippets.php:67
+msgid "New Snippet"
+msgstr ""
+
+#: wp-snippets.php:68
+msgid "All Snippets"
+msgstr ""
+
+#: wp-snippets.php:69
+msgid "View Snippet"
+msgstr ""
+
+#: wp-snippets.php:70
+msgid "Search Snippets"
+msgstr ""
+
+#: wp-snippets.php:71
+msgid "No Snippets found"
+msgstr ""
+
+#: wp-snippets.php:72
+msgid "No Snippets found in Trash"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP Snippets"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.websharks-inc.com/product/wp-snippets/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Create Snippets! This plugin adds a new Post Type. Snippets can be included "
+"in Posts/Pages/Widgets via shortcodes."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WebSharks, Inc. (Jason Caldwell)"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.websharks-inc.com/"
+msgstr ""
