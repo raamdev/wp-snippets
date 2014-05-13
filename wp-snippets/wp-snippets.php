@@ -187,7 +187,6 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 				$GLOBALS['post']; // This could be empty; Snippets can be in widgets too.
 			setup_postdata($GLOBALS['post'] = $snippet); // For filters.
 
-			$snippet_content = apply_filters('the_content', $snippet_content);
 			$snippet_content = apply_filters('the_snippet_content', $snippet_content);
 
 			$GLOBALS['post'] = $GLOBALS['snippet_post']; // Restore.
