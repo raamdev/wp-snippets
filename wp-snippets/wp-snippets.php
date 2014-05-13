@@ -164,6 +164,7 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 
 	public static function shortcode($attr = NULL, $content = NULL, $shortcode = NULL)
 		{
+			global $wp_filter;
 			if(empty($attr['slug'])) return ''; // Nothing to do in this case.
 
 			if(!is_array($posts = get_posts(array('name' => (string)$attr['slug'], 'post_type' => 'snippet', 'numberposts' => 1))))
@@ -186,10 +187,16 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 			$GLOBALS['snippet_post'] = // Possible parent post reference.
 				$GLOBALS['post']; // This could be empty; Snippets can be in widgets too.
 			setup_postdata($GLOBALS['post'] = $snippet); // For filters.
-
-			$snippet_content = apply_filters('the_content', $snippet_content);
+			
+			$wp_filter_temp = $wp_filter; // Backup filter state
+			$tag = 'the_content';
+			// Strip filters with lower priority than shortcode to avoid processing content twice
+			$wp_filter[$tag] = array_slice($wp_filter[$tag], 0, array_search(key($wp_filter[$tag]), array_keys($wp_filter[$tag])) + 1, true);
+			$snippet_content = apply_filters($tag, $snippet_content); // Default content filters
+			$wp_filter = $wp_filter_temp; // Restore filter state
+			unset($wp_filter_temp);
+			
 			$snippet_content = apply_filters('the_snippet_content', $snippet_content);
-
 			$GLOBALS['post'] = $GLOBALS['snippet_post']; // Restore.
 			if(!empty($GLOBALS['post']->ID)) setup_postdata($GLOBALS['post']);
 			$GLOBALS['snippet_post'] = NULL; // Nullify now.
