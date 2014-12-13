@@ -13,8 +13,11 @@ Description: Create Snippets! This plugin adds a new Post Type. Snippets can be 
 if(!defined('WPINC')) // MUST have WordPress.
 	exit('Do NOT access this file directly: '.basename(__FILE__));
 
-if(!defined('WP_SNIPPET_ROLES_ALL_CAPS')) define('WP_SNIPPET_ROLES_ALL_CAPS', 'administrator');
-if(!defined('WP_SNIPPET_ROLES_EDIT_CAPS')) define('WP_SNIPPET_ROLES_EDIT_CAPS', 'administrator,editor,author');
+if(!defined('WP_SNIPPET_ROLES_ALL_CAPS'))
+	define('WP_SNIPPET_ROLES_ALL_CAPS', 'administrator');
+
+if(!defined('WP_SNIPPET_ROLES_EDIT_CAPS'))
+	define('WP_SNIPPET_ROLES_EDIT_CAPS', 'administrator,editor,author');
 
 class wp_snippets // WP Snippets; like PHP includes for WordPress.
 {
@@ -164,7 +167,8 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 
 	public static function shortcode($attr = NULL, $content = NULL, $shortcode = NULL)
 	{
-		if(empty($attr['slug'])) return ''; // Nothing to do in this case.
+		if(empty($attr['slug']))
+			return ''; // Nothing to do in this case.
 
 		if(!is_array($posts = get_posts(array('name' => (string)$attr['slug'], 'post_type' => 'snippet', 'numberposts' => 1))))
 			return ''; // The slug was not found; possibly a typo in this case.
@@ -177,14 +181,15 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 
 		if($shortcode === 'snippet_template') // Template?
 		{
-			foreach($attr as $_key => $_value)
+			foreach($attr as $_key => $_value) // Fill replacement codes.
 				$snippet_content = str_ireplace('%%'.$_key.'%%', (string)$_value, $snippet_content);
+			unset($_key, $_value); // Housekeeping.
+
 			$snippet_content = preg_replace('/%%content%%/', (string)$content, $snippet_content);
 			$snippet_content = preg_replace('/%%.+?%%/', '', $snippet_content);
-			unset($_key, $_value); // Housekeeping.
 		}
-		$GLOBALS['snippet_post'] = // Possible parent post reference.
-			$GLOBALS['post']; // This could be empty; Snippets can be in widgets too.
+		if(!isset($GLOBALS['snippet_post']))
+			$GLOBALS['snippet_post'] = $GLOBALS['post'];
 		setup_postdata($GLOBALS['post'] = $snippet); // For filters.
 
 		$snippet_content = apply_filters('the_content', $snippet_content);
