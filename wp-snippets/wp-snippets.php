@@ -192,8 +192,13 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 			$GLOBALS['snippet_post'] = $GLOBALS['post'];
 		setup_postdata($GLOBALS['post'] = $snippet); // For filters.
 
+		$wp_filter      = $GLOBALS['wp_filter'];
+		$wp_filter_temp = $wp_filter; // Backup filter state.
+
 		$snippet_content = apply_filters('the_content', $snippet_content);
 		$snippet_content = apply_filters('the_snippet_content', $snippet_content);
+
+		$wp_filter = $wp_filter_temp; // Restore filter state.
 
 		$GLOBALS['post'] = $GLOBALS['snippet_post']; // Restore.
 		if(!empty($GLOBALS['post']->ID)) setup_postdata($GLOBALS['post']);
