@@ -179,7 +179,7 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 		$snippet         = $posts[0]; // Object reference.
 		$snippet_content = $snippet->post_content;
 
-		if($shortcode === 'snippet_template') // Template?
+		if($shortcode === 'snippet_template') // A snippet template?
 		{
 			foreach($attr as $_key => $_value) // Fill replacement codes.
 				$snippet_content = str_ireplace('%%'.$_key.'%%', (string)$_value, $snippet_content);
@@ -192,13 +192,12 @@ class wp_snippets // WP Snippets; like PHP includes for WordPress.
 			$GLOBALS['snippet_post'] = $GLOBALS['post'];
 		setup_postdata($GLOBALS['post'] = $snippet); // For filters.
 
-		$wp_filter      = $GLOBALS['wp_filter'];
-		$wp_filter_temp = $wp_filter; // Backup filter state.
-
+		$wp_filter       = &$GLOBALS['wp_filter'];
+		$wp_filter_temp  = $wp_filter; // Backup filter state.
 		$snippet_content = apply_filters('the_content', $snippet_content);
-		$snippet_content = apply_filters('the_snippet_content', $snippet_content);
+		$wp_filter       = $wp_filter_temp; // Restore filter state.
 
-		$wp_filter = $wp_filter_temp; // Restore filter state.
+		$snippet_content = apply_filters('the_snippet_content', $snippet_content);
 
 		$GLOBALS['post'] = $GLOBALS['snippet_post']; // Restore.
 		if(!empty($GLOBALS['post']->ID)) setup_postdata($GLOBALS['post']);
