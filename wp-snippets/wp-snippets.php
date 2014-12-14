@@ -317,6 +317,6 @@ class wp_snippets // Like PHP includes; for WordPress.
 /*
  * Primary plugin hooks.
  */
-add_action('init', 'wp_snippets::init');
+add_action('init', 'wp_snippets::initialize');
 register_activation_hook(__FILE__, 'wp_snippets::activate');
 register_deactivation_hook(__FILE__, 'wp_snippets::deactivate');
