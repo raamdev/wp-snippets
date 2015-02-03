@@ -1,14 +1,14 @@
 === WP Snippets ===
 
-Stable tag: 131121
-Requires at least: 3.2
-Tested up to: 3.7.1
+Stable tag: 150201
+Requires at least: 3.3
+Tested up to: 4.2-alpha
 Text Domain: wp-snippets
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Contributors: WebSharks, JasWSInc
+Contributors: WebSharks, JasWSInc, raamdev, bruce-caldwell
 Donate link: http://www.websharks-inc.com/r/wp-theme-plugin-donation/
 Tags: snippet, snippets, include, includes, shortcode, shortcodes, php, post type, post types, utilities, posts, pages
 
@@ -112,6 +112,12 @@ Released under the terms of the [GNU General Public License](http://www.gnu.org/
 	- Font Awesome <http://fortawesome.github.io/Font-Awesome/>
 
 == Changelog ==
+
+= v150201 =
+
+* Reformat source code; general cleanup.
+* Compatibility with WordPress v4.1 and v4.2-alpha.
+* Bug fix in hook/filter handling. See: [this GitHub issue](https://github.com/websharks/wp-snippets/pull/2) for further details.
 
 = v131121 =
 
