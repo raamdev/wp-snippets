@@ -257,7 +257,7 @@ class wp_snippets // Like PHP includes; for WordPress.
 		$attr['slug'] = (string)$attr['slug'];
 
 		if (stripos($attr['slug'], 'random:') === 0) {
-			$_slugs       = substr($_slugs, 7); // Remove the `random:` prefix.
+			$_slugs       = substr($attr['slug'], 7); // Remove the `random:` prefix.
 			$_slugs       = preg_split('/,+/', $_slugs, NULL, PREG_SPLIT_NO_EMPTY);
 			$_total_slugs = count($_slugs);
 
