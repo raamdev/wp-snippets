@@ -257,10 +257,16 @@ class wp_snippets // Like PHP includes; for WordPress.
 		$attr['slug'] = (string)$attr['slug'];
 
 		if (stripos($attr['slug'], 'random:') === 0) {
-			$_slugs = substr($_slugs, 2); // Remove the `random:` prefix.
-			$_slugs = preg_split('/,+/', $_slugs, NULL, PREG_SPLIT_NO_EMPTY);
-			$attr['slug'] = $_slugs[mt_rand(0, count($_slugs) - 1)];
-			unset($_slugs); // Housekeeping.
+			$_slugs       = substr($_slugs, 7); // Remove the `random:` prefix.
+			$_slugs       = preg_split('/,+/', $_slugs, NULL, PREG_SPLIT_NO_EMPTY);
+			$_total_slugs = count($_slugs);
+
+			if ($_total_slugs > 1) {
+				$attr['slug'] = $_slugs[mt_rand(0, $_total_slugs - 1)];
+			} else {
+				$attr['slug'] = $_slugs[0];
+			}
+			unset($_slugs, $_total_slugs); // Housekeeping.
 		}
 		if(!is_array($posts = get_posts(array('name' => $attr['slug'], 'post_type' => 'snippet', 'numberposts' => 1))))
 			return ''; // The slug was not found; possibly a typo in this case.
