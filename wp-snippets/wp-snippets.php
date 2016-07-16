@@ -116,7 +116,7 @@ class wp_snippets // Like PHP includes; for WordPress.
 			'show_ui'      => TRUE, 'exclude_from_search' => TRUE, 'show_in_nav_menus' => FALSE,
 			'map_meta_cap' => TRUE, 'capability_type' => array('snippet', 'snippets'),
 			'rewrite'      => array('slug' => 'snippet', 'with_front' => FALSE),
-			'supports'     => array('title', 'editor', 'author', 'revisions'),
+			'supports'     => array('title', 'editor', 'author', 'revisions', 'wpcom-markdown'),
 		);
 		$post_type_args['labels'] = array
 		(
