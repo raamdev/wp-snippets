@@ -1,0 +1,49 @@
+{
+  "name": "websharks/wp-snippets",
+  "homepage": "https://github.com/websharks/wp-snippets",
+  "description": "WP Snippets Pro plugin for WordPress.",
+  "keywords": ["websharks", "wpsharks", "wp-snippets"],
+
+  "type": "project",
+  "license": "GPL-3.0+",
+
+  "authors": [{
+    "name": "wpsharks",
+    "homepage": "https://wpsharks.com",
+    "role": "company"
+  }, {
+    "name": "jaswsinc",
+    "homepage": "https://jaswsinc.com",
+    "role": "developer"
+  }, {
+    "name": "raamdev",
+    "homepage": "https://raamdev.com",
+    "role": "developer"
+  }],
+
+  "support": {
+    "source": "https://github.com/websharks/wp-snippets",
+    "issues": "https://github.com/websharks/wp-snippets/issues"
+  },
+
+  "require-dev": {},
+
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+
+  "autoload": {
+    "psr-4": {
+      "WebSharks\\WpSharks\\WpSnippets\\Classes\\": "src/includes/classes",
+      "WebSharks\\WpSharks\\WpSnippets\\Functions\\": "src/includes/functions",
+      "WebSharks\\WpSharks\\WpSnippets\\Interfaces\\": "src/includes/interfaces",
+      "WebSharks\\WpSharks\\WpSnippets\\Traits\\": "src/includes/traits"
+    }
+  },
+
+  "config": {
+    "vendor-dir": "src/vendor",
+    "preferred-install": "dist"
+  },
+
+  "repositories": []
+}

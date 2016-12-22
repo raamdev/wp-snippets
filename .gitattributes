@@ -112,6 +112,7 @@
 *.jpeg binary
 *.jpg binary
 *.png binary
+*.webp binary
 *.psd binary
 *.svg text
 *.tif binary
@@ -279,6 +280,29 @@ Icons -export-ignore
 # Export Ignore (More) -------------------------------------------------------------------------------------------------
 # These are in addition to what we have in `.gitignore`.
 
+# IDE Helpers
+
+_ide.php export-ignore
+
+# CHANGELOG Files
+
+CHANGELOG.md export-ignore
+CHANGELOG.mdown﻿⁠⁠⁠⁠ export-ignore
+
+# README Files
+
+README.md export-ignore
+README.mdown export-ignore
+
+# TODO Lists
+
+TODO.md export-ignore
+TODO.mdown export-ignore
+
+# Dists
+
+*.dist export-ignore
+
 # SASS
 
 *.scss export-ignore
@@ -319,6 +343,19 @@ Icons -export-ignore
 
 /assets/ export-ignore
 /src/vendor/websharks/*/assets/ export-ignore
+
+# Composer Files
+
+/composer.json export-ignore
+/src/vendor/*/*/composer.json export-ignore
+
+/composer.lock export-ignore
+/src/vendor/*/*/composer.lock export-ignore
+
+# Makefiles
+
+/Makefile export-ignore
+/src/vendor/*/*/Makefile export-ignore
 
 # Build Files
 
@@ -367,15 +404,39 @@ Icons -export-ignore
 /src/vendor/*/*/test/ export-ignore
 /src/vendor/*/*/tests/ export-ignore
 
+# PHPUnit
+
+/phpunit.xml export-ignore
+/src/vendor/*/*/phpunit.xml export-ignore
+
+# Box / Phar
+
+/box.json export-ignore
+/src/vendor/*/*/box.json export-ignore
+
+/.box.json export-ignore
+/src/vendor/*/*/.box.json export-ignore
+
 # Drone
 
 /.drone.* export-ignore
 /src/vendor/*/*/.drone.* export-ignore
 
+# Circle CI
+
+/circle.yml export-ignore
+/src/vendor/*/*/circle.yml export-ignore
+
+/.circle.yml export-ignore
+/src/vendor/*/*/.circle.yml export-ignore
+
 # Travis
 
 /.travis.* export-ignore
 /src/vendor/*/*/.travis.* export-ignore
+
+/.travis-* export-ignore
+/src/vendor/*/*/.travis-* export-ignore
 
 # Coverage
 
@@ -384,6 +445,11 @@ Icons -export-ignore
 
 /.scrutinizer.* export-ignore
 /src/vendor/*/*/.scrutinizer.* export-ignore
+
+# PHP Code Sniffer
+
+/.php_cs export-ignore
+/src/vendor/*/*/.php_cs export-ignore
 
 # Post-Receive
 
@@ -395,8 +461,13 @@ Icons -export-ignore
 /src/includes/phar-stub.php export-ignore
 /src/vendor/websharks/*/src/includes/phar-stub.php export-ignore
 
+# PsySH Stub
+
+/src/includes/psysh-stub.php export-ignore
+/src/vendor/websharks/*/src/includes/psysh-stub.php export-ignore
+
 # LFS Storage (Assets) -------------------------------------------------------------------------------------------------
-# NOTE: Here we need to match all assets explictly; i.e., requires `/**`
+# NOTE: Here we need to match all assets explicitly; i.e., requires `/**`
 
 /assets/** filter=lfs diff=lfs merge=lfs -text
 
