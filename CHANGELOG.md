@@ -1,5 +1,6 @@
-## v170111.28751
+## v170111.29996
 
+- Bug fix. Missing shortcode content output. See [Issue #1](https://github.com/websharks/wp-snippets-pro/issues/1).
 - Bug fix. Shortcode error due to incorrect 'by reference' value. See [Issue #1](https://github.com/websharks/wp-snippets-pro/issues/1).
 
 ## v161222.28602

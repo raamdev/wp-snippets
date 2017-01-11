@@ -151,7 +151,7 @@ class Shortcode extends SCoreClasses\SCore\Base\Core
             return ''; // No snippet or no content; nothing to do.
         }
         $Snippet         = $WP_Posts[0]; // WP_Post object reference.
-        $snippet_content = $WP_Posts[0]->post_content->post_content; // A copy.
+        $snippet_content = $WP_Posts[0]->post_content; // A copy of the content.
         // This must be a copy of the snippet content; i.e., it is filtered down below.
 
         /*
