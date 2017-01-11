@@ -1,6 +1,6 @@
 === WP Snippets ===
 
-Stable tag: 161222.28602
+Stable tag: 170111.28751
 
 Tested up to: 4.8-alpha
 Requires at least: 4.6

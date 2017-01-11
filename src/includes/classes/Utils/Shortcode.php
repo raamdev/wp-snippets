@@ -147,7 +147,7 @@ class Shortcode extends SCoreClasses\SCore\Base\Core
         }
         $WP_Query = new \WP_Query($query_args); // New query.
 
-        if (!($WP_Posts = &$WP_Query->get_posts()) || empty($WP_Posts[0]->post_content)) {
+        if (!($WP_Posts = $WP_Query->get_posts()) || empty($WP_Posts[0]->post_content)) {
             return ''; // No snippet or no content; nothing to do.
         }
         $Snippet         = $WP_Posts[0]; // WP_Post object reference.
